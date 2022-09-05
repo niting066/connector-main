@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}404 Error | Page not found{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="jumbotron ">
+              <h1 class="display-4" style="font-size: 50px">404</h1>
+              <p class="lead">
+                  Oops! This Page Could Not Be Found</p>
+              <hr class="my-4">
+              <p>
+                  SORRY BUT THE PAGE YOU ARE LOOKING FOR DOES NOT EXIST, HAVE BEEN REMOVED. NAME CHANGED OR IS TEMPORARILY UNAVAILABLE</p>
+              <p class="lead">
+                <a class="btn btn-primary btn-lg" href="{% url 'home' %}" role="button">Back to home</a>
+              </p>
+        </div>
+    </div>
+{% endblock %}

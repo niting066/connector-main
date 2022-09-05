@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Search results{% endblock %}
+{% block body %}
+<div class="container w-50 py-2">
+<div class="card py-2">
+  <div class="card-header" style="text-align: center ">
+    Search result
+  </div>
+     {% for users in username_profile_list %}
+  <div class="card-body">
+        <div class="container py-2">
+            <div class="card">
+            <div class="row px-2">
+                <div class="col-3 py-2">
+                    <div class="card border-dark px-2 py-2">
+                    <div class="card py-2 px-2 border-0">
+                    <center><a class="image-link py-3" style="text-decoration: none" href="/profile/{{users.user}}"><img class="image" style="max-height: 100px" src="{{users.profile_image.url}}">
+                    </a></center></div>
+                    <center><a href="/profile/{{users.user}}" class="btn btn-primary py-2">View user</a></center>
+                </div></div>
+                <div class="col-9 py-2">
+                    <div class="card border-dark pt-3 px-3">
+                    <p class="search-result-item-heading"><b>Name: </b>{{users.user.first_name | capfirst}} {{users.user.last_name | capfirst}}</p>
+                    <p class="search-result-item-heading"><b>About: </b>{{users.user.bio | capfirst}}</p>
+                    <p class="search-result-item-heading"><b>Email: </b>{{users.user.email | capfirst}}</p>
+                    <p><strong>Location:</strong>  {{users.location}}</p>
+                </div>
+
+                </div>
+            </div></div>
+  </div></div>{% endfor %}
+</div>
+{% endblock %}

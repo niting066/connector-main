@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}500 Server Error{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="jumbotron ">
+              <h1 class="display-4" style="font-size: 50px">500</h1>
+              <p class="lead">
+                 Internal Server Error</p>
+              <hr class="my-4">
+              <p>
+                    THE SERVER ENCOUNTERED AN INTERNAL ERROR OR MISCONFIGURATION AND WAS UNABLE TO COMPLETE YOUR REQUEST.</p>
+              <p class="lead">
+                <a class="btn btn-primary btn-lg" href="{% url 'home' %}" role="button">Back to home</a>
+              </p>
+        </div>
+    </div>
+{% endblock %}

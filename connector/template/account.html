@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Account | {{ user }}{% endblock %}
+{% block body %}
+<div class="container w-25 py-5">
+	<h1 style="text-align: center">Account Settings</h1>
+ 		<form method="POST" enctype="multipart/form-data" action="">
+    	{% csrf_token %}
+    	<div class="row py-2">
+            <div class="form-group">
+                <img width="100" height="100" style="height: auto" src="{{ form.profile_image.url }}">
+				<label for="exampleInputEmail1">Profile Image</label>
+                <input type="file" class="form-control" name="image" placeholder="" formenctype="multipart/form-data" enctype="multipart/form-data">
+            </div></div>
+            <div class="row py-2">
+			<div class="form-group">
+				<label for="exampleInputEmail1">About yourself</label>
+                <textarea id="about" class="form-control" name="bio" placeholder="Tell us about yourself">{{ form.bio }}</textarea>
+            </div></div>
+            <div class="row py-2">
+                <div class="form-group">
+				<label for="exampleInputEmail1">Your Current City/Town</label>
+				<input type="text" class="form-control" name="location" placeholder="{{ form.location }}" value="{{ form.location }}">
+  			</div>
+		</div><br>
+    	<Center><button class="btn btn-primary" type="submit">Save</button>
+        <a class="btn btn-secondary" href="/profile/{{ user }}">Profile</a>
+        </Center>
+        </form></div>
+{% endblock %}

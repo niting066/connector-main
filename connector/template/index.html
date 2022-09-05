@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block title %}Home{% endblock %}
+{% block body %}
+
+<div class="container py-3">
+  <div class="row">
+    <div class="col-8">
+        {% for x in post %}
+
+      <div class="card" style="max-width: 60rem" >
+          {% if x.image %}
+              <div class="card-body" style="text-align: center">Connector
+              </div>
+  <img class="card-img-top rounded mx-auto d-block py-3" src="{{ x.image.url }}" style="max-width: 600px; " alt="Card image cap">
+
+
+  <div class="card-body card-header">
+      <p class="card-title"><strong><a href="/profile/{{ x.user }}" style="text-decoration: none">@{{ x.user | capfirst}}</a>: </strong> {{ x.caption }}</p>
+  </div>
+          {% else %}
+              <div class="card-body " style="text-align: center">Connector
+              </div>
+    <div class="card-body card-header py-3">
+        <p class="card-title"><strong>Post by <a href="/profile/{{ x.user }}" style="text-decoration: none">@{{ x.user | capfirst}} </a>: </strong>{{ x.caption }}</p>
+
+  </div>
+
+          {% endif %}
+  <div class="card-body">
+      <p class=""><small>{{ x.uploaded_at | date}}</small></p>
+  </div>
+</div><br>{% endfor %}
+    </div>
+    <div class="col-4 " style="align-self: flex-start; ">
+      <div class="card" style="max-width: 100rem" >
+      <div class="card-body">
+            <div class="row">
+      <div class="col-8 col-sm-6 pt-1">
+      <h5 class="card-title d-flex"> User you can follow</h5>
+      </div>
+      <div class="col-4 col-sm-6">
+        <center><a class="btn btn-dark" role="button" href="{% url 'home' %}">Refresh</a></center>
+      </div>
+    </div>
+
+  <div class="card-body">
+        <div class="container">
+
+                <div class="row">
+                    {% for x in suggest %}
+                    <div class="col-6 py-2 px-2">
+                        <div class="card border-dark py-2">
+                            <center>
+                                <div class="card pt-2 px-2 border-0">
+                                   <a class="image-link py-3" style="text-decoration: none" href="/profile/{{ x.user }}">
+                                        <img class="image" style="max-height: 100px" src="{{ x.profile_image.url }}">
+                                   </a>
+                                </div>
+
+                                <p class=""><b></b><a href="/profile/{{ x.user }}" style="text-decoration: none">{{x.user.first_name | capfirst}} {{x.user.last_name | capfirst}}</a></p>
+                                <a href="/profile/{{ x.user }}" class="btn btn-sm btn-primary">View user</a>
+
+                            </center>
+                        </div>
+                    </div>  {% endfor %}
+                </div></div></div>
+
+
+{% endblock %}

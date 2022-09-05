@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Profile | {{ user_obj.first_name | capfirst }} {{ user_obj.last_name | capfirst }}{% endblock %}
+{% block body %}
+<div class="container py3" xmlns="http://www.w3.org/1999/html">
+    <div class="row py-3">
+        <div class="col-4 py3">
+            <div class="card" style="width: 25rem;">
+                <img class="card-img-top" src="{{ pro.profile_image.url }}" alt="Card image cap">
+            <div class="card-body">
+                <h2 class="card-title-" style="text-align: center"><b>{{ user_obj.first_name | capfirst }} {{ user_obj.last_name | capfirst }}</b></h2><hr>
+    <p class="card-text" style="text-align: center"><b>About: </b>{{ pro.bio }}</p>
+    <p class="card-text" style="text-align: center"><b>Current Location:</b> {{ pro.location | capfirst }}</p>
+                {% if user_is_authenticted %}
+                <center><a class="btn btn1 btn-dark " id="buttn" href="{% url 'setting' %}" role="button">Account setting</a>
+        </center>
+                {% else %}
+                    <form method="post" action="/follow">
+                    {% csrf_token %}
+                        <input type="hidden" value="{{ user.username }}" name="follower"/>
+                        <input type="hidden" value="{{ user_obj.username }}" name="user"/>
+                        {% if user_obj.username == user.username %}
+                            <center><a href="{% url 'setting' %}" data-ripple="" class="btn btn-dark">Account Settings</a></center>
+					{% else %}
+
+                <center><a data-ripple=""><button class="button btn btn-dark" type="submit">{{button_text}}</button></a>
+        </center>{% endif %}</form>
+                {% endif %}<br><hr>
+            <div class="card" >
+  <div class="card-body">
+        {% if nop == 0 %}
+            <h5 style="text-align: center">No Photos uploaded yet</h5>
+        {% else %}
+            <h5 style="text-align: center">Photos</h5>
+        {% endif %}
+  {% for x in post %}
+      {% if x.image %}
+      <img class="py-1 px-1" src="{{ x.image.url }}" style="max-width: 80px; max-height: 80px; " alt="Card image cap">
+      {% endif %}
+  {% endfor %}
+      </div>
+</div>
+  </div>
+</div>
+        </div>
+        <div class="col-8 py3">
+            <div class="card mb-3">
+                <img class="card-img-top" src="{% static 'cover.jpg' %}"  alt="Card image cap">
+                <div class="row py-3">
+                    <div class="col-4 py3">
+                        {% if nop == 0 %}
+                            <h5 style="text-align: center">No Post</h5>
+                        {% else %}
+                            <h5 style="text-align: center">{{ nop }} Posts</h5>
+                        {% endif %}
+                    </div>
+                    <div class="col-4 py3">
+                        {% if no_of_followers == 0 %}
+                            <h5 style="text-align: center">0 Follower</h5>
+                        {% else %}
+                            <h5 style="text-align: center">{{ no_of_followers }} Followers</h5>
+                        {% endif %}
+                    </div>
+                    <div class="col-4 py3">
+                        {% if no_of_following == 0 %}
+                            <h5 style="text-align: center">0 Following</h5>
+                        {% else %}
+                            <h5 style="text-align: center">{{ no_of_following }} Following</h5>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                {{ user_obj.first_name | capfirst }}'s Timeline
+              </div>
+              <div class="card-body ">
+                <div class="container">
+                        {% if nop == 0 %}
+                            <h5 style="text-align: center">Nothing to see here</h5>
+                        {% endif %}
+                        {% for x in post %}
+
+                      <div class="card" style="max-width: 60rem" >
+                          {% if x.image %}
+                              <div class="card-body" style="text-align: center">Social Media App "Connector" by Nitin</div>
+                  <img class="card-img-top rounded mx-auto d-block py-3" src="{{ x.image.url }}" style="max-width: 600px; " alt="Card image cap">
+                  <div class="card-body card-header">
+                      <p class="card-title"><strong><a href="/profile/{{ x.user }}" style="text-decoration: none">@{{ x.user | capfirst}}</a>: </strong> {{ x.caption }}</p>
+                  </div>
+                          {% else %}
+                              <div class="card-body" style="text-align: center">Social Media App "Connector" by Nitin</div>
+                    <div class="card-body card-header">
+                        <p class="card-title"><strong>Post by <a href="/profile/{{ x.user }}" style="text-decoration: none">@{{ x.user | capfirst}} </a>: </strong>{{ x.caption }}</p>
+
+                  </div>
+
+                          {% endif %}
+                  <div class="card-body">
+                      <p class=""><small>{{ x.uploaded_at | date}}</small></p>
+                  </div>
+                </div><br>{% endfor %}
+    </div>
+              </div>
+    </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+
+</div>
+{% endblock %}
